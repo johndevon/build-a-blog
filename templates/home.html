@@ -2,13 +2,14 @@
 
 {% block content %}
 
-<p> This is the homepage... </p>
-
 <hr>
+<br>
+<br>
 {% for i in posts %}
     <div class="body">
-        <div class="post-title">{{i.title}}</div>
-        <pre class="post-body">{{i.body}}</div>
+        <div class="post-title"><a href="/blog/{{i.key().id()}}">{{i.title}}</a></div>
+        <hr>
+        <pre class="post-body">{{i.body}}</pre>
 
     </div>
 {% endfor %}

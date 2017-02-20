@@ -32,32 +32,45 @@
                 font-size: 24px;
             }
             hr {
-                margin: 20px auto;
+                margin: 5px auto;
             }
             .body + .body {
                 margin-top: 20px;
+
             }
             .post-title {
                 font-weight: bold;
                 font-size: 20px;
+                text-decoration: none;
             }
             .post-body {
-                margin: 0;
+                margin-top: 5px;
                 font-size: 17px;
+                text-decoration: none;
+            }
+            h1 {
+                text-align: center;
+                font-family: monospace;
+            }
+            table {
+                border-spacing: 10px;
             }
 
         </style>
 
     <body>
-        <h1>
-            <a href="/blog">My Blog</a>
-        </h1>
-        <ul>
+        <h1> Devon's Blog </h1>
+        <table>
+            <td>
 
-            <li><a href="/blog">Home</a></li>
-            <li><a href="/NewPost">New Post +</a></li>
+                <h3><a href="/blog">Home</a></h3>
 
-        </ul>
+            </td>
+            <td>
+
+                <h3><a href="/NewPost">New Post +</a></h3>
+
+        </table>
 
         {% block content %}
         {% endblock %}

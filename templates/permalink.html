@@ -2,7 +2,11 @@
 
 {% block content %}
 
-<p>
-{{post}}
-</p>
+<hr>
+    <div class="body">
+        <div class="post-title">{{post.title}}</div>
+        <pre class="post-body">{{post.body}}</div>
+
+    </div>
+
 {% endblock %}

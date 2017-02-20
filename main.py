@@ -8,6 +8,12 @@ template_dir = os.path.join(os.path.dirname(__file__), 'templates' )
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
                                 autoescape = True)
 
+#def get_posts(limit, offset):
+    #t = jinja_env.get_template("home.html")
+    #content = t.render(
+                    #movies = unwatched_movies,
+                    #error = self.request.get("error"))
+    #self.response.write(content)
 
 class Handler(webapp2.RequestHandler):
     def write(self, *a, **kw):
@@ -46,23 +52,21 @@ class NewPost(Handler):
             p = Post(title=title, body=body)
             p.put()
 
-            self.redirect("/blog")
+            self.redirect('/blog/%s' % str(p.key().id() ) )
         else:
             error = "We need a title and a body"
             self.render_front(title, body, error)
 
 class ViewPostHandler(Handler):
     def get(self, user_id):
-        post = Post.get_by_id(int(user_id))
-        #self.response.write(post)
-        #key = db.Key.from_path('Post', int(user_id))
-        #post = db.get(key)
+        post_id = int(user_id)
+        Currentpost = Post.get_by_id(post_id)
 
-        #if not post:
-            #self.error(404)
-            #return
+        if not Currentpost:
+            self.error(404)
+            return
 
-        #self.render("permalink.html", post = post)
+        self.render("permalink.html", post = Currentpost)
 
 app = webapp2.WSGIApplication([
     ('/blog', BlogHome),
