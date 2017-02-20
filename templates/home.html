@@ -4,4 +4,13 @@
 
 <p> This is the homepage... </p>
 
+<hr>
+{% for i in posts %}
+    <div class="body">
+        <div class="post-title">{{i.title}}</div>
+        <pre class="post-body">{{i.body}}</div>
+
+    </div>
+{% endfor %}
+
 {% endblock %}

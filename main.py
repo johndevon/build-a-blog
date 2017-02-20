@@ -27,7 +27,8 @@ class Post(db.Model):
 
 class BlogHome(Handler):
     def get(self):
-        self.render('home.html')
+        posts = db.GqlQuery("SELECT * FROM Post ORDER BY created DESC LIMIT 5")
+        self.render('home.html', posts=posts)
 
 class NewPost(Handler):
     def render_front(self, title="", body="", pageerror=""):
@@ -45,13 +46,26 @@ class NewPost(Handler):
             p = Post(title=title, body=body)
             p.put()
 
-            self.redirect("/")
+            self.redirect("/blog")
         else:
             error = "We need a title and a body"
             self.render_front(title, body, error)
 
+class ViewPostHandler(Handler):
+    def get(self, user_id):
+        post = Post.get_by_id(int(user_id))
+        #self.response.write(post)
+        #key = db.Key.from_path('Post', int(user_id))
+        #post = db.get(key)
+
+        #if not post:
+            #self.error(404)
+            #return
+
+        #self.render("permalink.html", post = post)
 
 app = webapp2.WSGIApplication([
-    ('/', BlogHome),
-    ('/NewPost', NewPost)
+    ('/blog', BlogHome),
+    ('/NewPost', NewPost),
+    webapp2.Route('/blog/<user_id:\d+>', ViewPostHandler)
 ], debug=True)
